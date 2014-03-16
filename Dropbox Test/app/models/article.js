@@ -14,3 +14,9 @@ var Article = db.define('article', {
   }
 });
 
+db.drop(function(){
+	Article.sync(function(){
+		
+	});
+});
+
