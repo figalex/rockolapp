@@ -26,7 +26,7 @@ exports.login = function(req, res){
 				console.log('Entries');
 				console.log(entries);
 				songs = entries;
-				res.render('home/songs', {
+				res.render('index', {
 					user: userName,
 					songs: entries
 				});

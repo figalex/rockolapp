@@ -1,93 +1,88 @@
 !!! 5
 html
-  head
-    meta(charset='UTF-8')
-    meta(content='', name='description')
-    meta(content='width=device-width', name='viewport')
-    link(href='style/main.css', rel='stylesheet', type='text/css')
-    link(href='components/player/css/style.css', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=Asap:400,700', rel='stylesheet', type='text/css')
-    title RockolApp
-  body
-    header
-      #menubar.navbar.navbar-inverse.navbar-fixed-top
-        .navbar-inner
-          ul.nav
-            li#logo
-              a
-                img(height='50px', src='./images/Logo.png', width='200px')
-            li#upload
-              a(data-toggle='modal', href='#modalUpload', role='button') Subir cancion
-            li#plist
-              a Nueva playlist
-            li#user
-              div
-                ul
-                  li
-                    label Hola, 
-                  li
-                    a Cerrar sesión
-    #main-container.container.maxheight.no-overflow
-      .row.maxheight
-        .span3
-          #lista-canciones.scrollable
-            ul#lista-canciones
-              li#song(onclick='playSong(this)') '.$entry.'
-              | ';
-              | }
-              | }
-              | closedir($handle);
-              | }
-              | ?
-          #listas
-            ul
-              li#titulo
-                label Playlists
-              li#playlist
-                a
-                  .icon-headphones
-                  | Rock
-              li#playlist
-                a
-                  .icon-headphones
-                  | Indie
-              li#playlist
-                a
-                  .icon-headphones
-                  | Alternative
-              li#playlist
-                a
-                  .icon-headphones
-                  | Pop
-              li#playlist
-                a
-                  .icon-headphones
-                  | Punk
-              li#playlist
-                a
-                  .icon-headphones
-                  | Electronic
-        .span9
-          #player
-            //
-               .ttw-music-player 
-    #modalUpload.modal.hide.fade(aria-hidden='true', aria-labelledby='uploadLabel', role='dialog', tabindex='-1')
-      .modal-header
-        button.close(aria-hidden='true', data-dismiss='modal') X
-        h3 Sube tu cancion!
-      .modal-body
-      form(action='upload_file.php', enctype='multipart/form-data', method='post')
-        br
-        label(for='file') Selecciona una cancion:
-        input#file(name='file', type='file')
-        br
-        input(name='submit', type='submit', value='Submit')
-        input(name='user', type='hidden', value='<?php echo $_GET[\'user\']; ?>')
-      .modal-footer
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
-    script
-      window.jQuery || document.write('<script src="./components/jquery/jquery.js"><\\/script>')
-    script(src='components/sass-bootstrap/bootstrap.js')
-    script(src='components/player/jquery-jplayer/jquery.jplayer.js')
-    script(src='components/player/ttw-music-player.js')
-    script(src='script/main.js')
+	head
+		meta(charset='UTF-8')
+		meta(content='', name='description')
+		meta(content='width=device-width', name='viewport')
+		link(href='/css/main.css', rel='stylesheet', type='text/css')
+		link(href='/js/components/music-player/plugin/css/style.css', rel='stylesheet', type='text/css')
+		link(href='http://fonts.googleapis.com/css?family=Asap:400,700', rel='stylesheet', type='text/css')
+		title RockolApp
+	body
+		header
+			#menubar.navbar.navbar-inverse.navbar-fixed-top
+				.navbar-inner
+					ul.nav
+						li#logo
+							a
+								img(height='50px', src='/images/Logo.png', width='200px')
+						li#upload
+							a(data-toggle='modal', href='#modalUpload', role='button') Subir cancion
+						li#plist
+							a Nueva playlist
+						li#user
+							div
+							ul
+								li
+									label Hola, #{user}
+								li
+								a Cerrar sesión
+		#main-container.container.maxheight.no-overflow
+			.row.maxheight
+				.span3
+					#lista-canciones.scrollable
+						ul#lista-canciones
+							each song in songs
+								li#song(onclick='playSong(this)') #{song}
+					#listas
+						ul
+							li#titulo
+								label Playlists
+							li#playlist
+								a
+									.icon-headphones
+									| Rock
+							li#playlist
+								a
+									.icon-headphones
+									| Indie
+							li#playlist
+								a
+									.icon-headphones
+									| Alternative
+							li#playlist
+								a
+									.icon-headphones
+									| Pop
+							li#playlist
+								a
+									.icon-headphones
+									| Punk
+							li#playlist
+								a
+									.icon-headphones
+									| Electronic
+				.span9
+				#player
+					//.ttw-music-player 
+		#modalUpload.modal.hide.fade(aria-hidden='true', aria-labelledby='uploadLabel', role='dialog', tabindex='-1')
+			.modal-header
+				button.close(aria-hidden='true', data-dismiss='modal') X
+				h3 Sube tu cancion!
+			.modal-body
+				form(action='upload_file.php', enctype='multipart/form-data', method='post')
+					br
+					label(for='file') Selecciona una cancion:
+					input#file(name='file', type='file')
+					br
+					input(name='submit', type='submit', value='Submit')
+					input(name='user', type='hidden', value='<?php echo $_GET[\'user\']; ?>')
+			.modal-footer
+	script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+	script
+		window.jQuery || document.write('<script src="/js/components/jquery/jquery.js"><\\/script>')
+	script(src='components/sass-bootstrap/bootstrap.js')
+		script(src="/js/components/jquery/dist/jquery.js")
+	script(src="/js/components/music-player/plugin/jquery-jplayer/jquery.jplayer.js")
+	script(src="/js/components/music-player/plugin/ttw-music-player.js")
+	script(src="/js/main.js")
