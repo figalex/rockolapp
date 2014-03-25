@@ -28,7 +28,7 @@ exports.login = function(req, res){
 				songs = entries;
 				res.render('home/songs', {
 					user: userName,
-					song: entries[0]
+					songs: entries
 				});
 			});
 		});
@@ -37,7 +37,13 @@ exports.login = function(req, res){
 	
 };
 
-exports.oauth_callback = function(req, res){
-	res.redirect('home/songs');
+exports.song = function(req, res){
+	var songName = req.params.songName;
+	console.log(songName);
+
+	client.makeUrl(songName, {download:true} , function(err, data){
+		if(err) throw new Error(err);
+		res.send({status:200, data:data.url});
+	});
 };
 

@@ -8,4 +8,9 @@ block content
 	div(style='margin: 0 auto;width:863px')
 		h2 Archivos
 		ul
-			li #{song}
+			each song in songs
+				li
+					a(onClick="playSong(this)") #{song}
+	br
+	br
+	div#player
