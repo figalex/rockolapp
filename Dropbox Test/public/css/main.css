@@ -4960,7 +4960,6 @@ header #menubar {
           width: 55%; }
           header #menubar .navbar-inner ul li#user div {
             float: right;
-            margin-left: 555px;
             box-shadow: 2px 0 20px -2px rgba(0, 0, 0, 0.4);
             padding: 8px 20px; }
             header #menubar .navbar-inner ul li#user div ul {
