@@ -31,14 +31,23 @@ module.exports = function (grunt) {
         tasks: ['develop', 'delayed-livereload']
       },
       css: {
-        files: ['public/styles/*.css'],
+        files: ['public/styles/*.css', 'public/styles/*.scss', 'public/css/*.scss'],
         options: {
           livereload: reloadPort
-        }
+        },
+        tasks:['sass:app']
       },
       jade: {
         files: ['app/views/**/*.jade'],
         options: { livereload: reloadPort }
+      }
+    },
+
+    sass:{
+      app:{
+        files:{
+          'public/styles/custom.css':'public/css/custom.scss'
+        }
       }
     }
   });

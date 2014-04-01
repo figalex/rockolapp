@@ -3,10 +3,11 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width')
-    title= title
+    title RockolApp
     block css
       link(rel='stylesheet', href='/css/normalize.css')
       link(rel='stylesheet', href='/css/style.css')
+      link(rel="stylesheet", href="/styles/custom.css")
       link(rel="stylesheet", href="/js/components/music-player/plugin/css/style.css")
     block js
       script(src='http://localhost:35729/livereload.js')
@@ -15,6 +16,4 @@ html(lang='en')
   body
     block content
     script(src="/js/components/jquery/dist/jquery.js")
-    script(src="/js/components/music-player/plugin/jquery-jplayer/jquery.jplayer.js")
-    script(src="/js/components/music-player/plugin/ttw-music-player.js")
     script(src="/js/main.js")

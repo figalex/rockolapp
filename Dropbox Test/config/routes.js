@@ -7,6 +7,8 @@ module.exports = function(app){
 	var auth = require('../app/controllers/auth');
 	app.get('/auth', auth.login);
 
+	app.get('/app', auth.app);
+
 	app.get('/song/:songName', auth.song);
 
 };
