@@ -1,17 +1,17 @@
 // Song model
 
-var db = require('orm').db;
+// var db = require('orm').db;
 
-var Song = db.define('song', {
-	title: String,
-	artist: String,
-	album: String,
-	length: Number,
-	url: String,
-}).hasOne('user', db.models.user);
+// var Song = db.define('song', {
+// 	title: String,
+// 	artist: String,
+// 	album: String,
+// 	length: Number,
+// 	url: String,
+// }).hasOne('user', db.models.user, {reverse: "songs"});
 
-db.drop(function(){
-	Song.sync(function(){
+// db.drop(function(){
+// 	Song.sync(function(){
 
-	});
-});
+// 	});
+// });

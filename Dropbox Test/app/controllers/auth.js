@@ -62,9 +62,13 @@ exports.app = function(req,res){
 
 				if(entriesStatus.length > 0)
 				{
-					for(var e=0;e<entriesStatus.length;e++){
-						songs.push(songsTasks.saveSong(entriesStatus[e], user, client));
-					}
+
+					entriesStatus.forEach(function(entrie){
+						songsTasks.saveSong(entrie, user, client, function(err, result){
+							if(err) throw new Error(err);
+							song.push(result);
+						});
+					});
 				}
 				else
 				{

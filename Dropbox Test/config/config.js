@@ -9,7 +9,7 @@ var config = {
       name: 'rockolapp'
     },
     port: 3000,
-    db: 'mysql://root@localhost/rockolapp1'
+    db: 'mysql://root@localhost/rockolapp_development'
   },
 
   test: {
