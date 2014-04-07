@@ -1,5 +1,5 @@
 var db = require('orm').db,
-  Article = db.models.article,
+  //Article = db.models.article,
   dropbox = require('dropbox');
 
 exports.index = function(req, res){

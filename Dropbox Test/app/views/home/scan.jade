@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+	div.row-fluid.login__background
+		div.login__form
+			img.login__logo(src="images/Logo.png", alt="")
+			p.login__description
+				| Por favor, espera mientras obtenemos la música de tu dropbox.
+				| Se creará una carpeta llamada "Rockolapp", toda la música que quieras escuchar la deberás poner en
+				| esa carpeta
+			img(src="images/loading.gif", alt="", style="width:150px;height:150px;")
+	script.
+		setTimeout(function(){
+				window.location.href = '/app';
+			}, 1500);
+
+

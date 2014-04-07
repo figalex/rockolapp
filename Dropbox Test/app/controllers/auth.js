@@ -1,6 +1,4 @@
 var Dropbox = require('dropbox'),
-	db = require('orm').db,
-	User = db.models.user,
 	songsTasks = require('./songs'),
 	usersTasks = require('./users');
 
@@ -29,15 +27,21 @@ exports.login = function(req, res){
 			user.name = info.name;
 			user.email = info.email;
 
-			User.create(user, function(err, newUsr){
-				if(err) throw new Error(err);
-				user = newUsr;
+			usersTasks.create(user, function(err, newUser){
+				if(err) throw new Error();
+
+				user = newUser;
 			});
 		});
 
-		res.redirect('/app');
+		res.redirect('/scan');
 	});
 };
+
+exports.scan = function(req, res){
+	res.render('home/scan', {});
+};
+
 
 exports.app = function(req,res){
 
@@ -66,7 +70,7 @@ exports.app = function(req,res){
 					entriesStatus.forEach(function(entrie){
 						songsTasks.saveSong(entrie, user, client, function(err, result){
 							if(err) throw new Error(err);
-							song.push(result);
+							songs.push(result);
 						});
 					});
 				}
@@ -74,6 +78,11 @@ exports.app = function(req,res){
 				{
 					console.log(' NO SONGS');
 				}
+
+				res.render('index', {
+					user: user,
+					songs: songs
+				});
 			});
 		}
 		else
@@ -82,6 +91,10 @@ exports.app = function(req,res){
 				if(err) throw new Error(err);
 
 				console.log('Folder Rockolapp created');
+				res.render('index', {
+					user: user,
+					songs: songs
+				});
 			});
 		}
 	});
@@ -109,19 +122,13 @@ exports.app = function(req,res){
 };
 
 exports.song = function(req, res){
-	var songName = req.params.songName;
-	console.log(songName);
+	var songID = req.params.songName;
+	console.log(songID);
 
-	client.makeUrl(songName, {download:true} , function(err, data){
-		if(err) throw new Error(err);
+	songsTasks.get(songID, function(err, songObj){
+		if(err) throw new Error();
 
-		var parser = mp3Metada(request(data.url).pipe(fs.createReadStream(songName)), {duration:true});
-
-		parser.on('metadata', function(result){
-			console.log(result);
-		});
-
-		res.send({status:200, data:data.url});
+		res.send(songObj);
 	});
 };
 

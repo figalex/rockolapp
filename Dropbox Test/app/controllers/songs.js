@@ -1,7 +1,7 @@
+// Songs controller
 
-var db = require('orm').db,
-	Songs = db.models.song,
-	Users = db.models.user,
+var mongoose = require('mongoose'),
+	Song = mongoose.model('Song'),
 	mp3Metada = require('musicmetadata'),
 	fs = require('fs'),
 	request = require('request');
@@ -16,41 +16,29 @@ exports.saveSong = function(songFile, user, dboxClient, callback){
 			console.log(result);
 			console.log(user);
 
-			Songs.create({
+			var newSong = new Song({
 				title:result.title || 'Title',
 				artist:result.artist || 'Artist',
 				album:result.album || 'Album',
 				length:result.duration || 0,
 				url: data.url
-			}, function(err, song){
-				if(err) {callback(err); return;}
-				Users.get(user.id, function(err, userForSong){
-					if(err) {callback(err); return;}
-					song.setUser(userForSong, function(err, songWithUser){
-						if(err){callback(err); return;}
-						callback(null, songWithUser);
-					});
-				});
 			});
 
-			// var newSong = new Songs({
-			// 	title:result.title || 'Title',
-			// 	artist:result.artist || 'Artist',
-			// 	album:result.album || 'Album',
-			// 	length:result.duration || 0,
-			// 	url: data.url
-			// });
-
-			// Users.get(user.id, function(err, userForSong){
-			// 	if(err) {callback(err); return;}
-			// 	console.log(newSong);
-			// 	console.log(newSong instanceof Songs);
-			// 	newSong.setUser(userForSong, function(err, songWithUser){
-			// 		if(err) {callback(err); return;}
-			// 		var result = songWithUser || newSong;
-			// 		callback(null, result);
-			// 	});
-			// });
+			newSong.user = user;
+			newSong.save(function(err, songCreated){
+				if(err){callback(err);return;}
+				console.log(songCreated);
+				callback(null, songCreated);
+			});
 		});
+	});
+};
+
+exports.get = function(songID, callback){
+
+	Song.findById(songID, function(err, songRequested){
+		if(err){ callback(err); return;}
+
+		callback(null, songRequested);
 	});
 };

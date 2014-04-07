@@ -1,5 +1,19 @@
 // Playlist model
 
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema;
+
+var playlistSchema = new Schema({
+	name:String,
+	songs:[{
+		type:Schema.ObjectId,
+		ref:'Song'
+	}]
+});
+
+mongoose.model('Playlist', playlistSchema);
+
+
 // var db = require('orm').db;
 
 // var Playlist = db.define('playlist', {

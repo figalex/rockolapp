@@ -24,7 +24,7 @@ html
 							div
 								ul
 									li
-										label Hola, #{user}
+										label Hola, #{user.name}
 									li
 									a Cerrar sesión
 		#main-container.container.maxheight.no-overflow
@@ -33,7 +33,7 @@ html
 					#lista-canciones.scrollable
 						ul#lista-canciones
 							each song in songs
-								li#song(onclick='playSong(this)') #{song}
+								li#song(onclick='playSong("#{song._id}")') #{song.title}
 					#listas
 						ul
 							li#titulo
@@ -63,8 +63,8 @@ html
 									.icon-headphones
 									| Electronic
 				.span9
-				#player
-					//.ttw-music-player 
+					#player
+						//.ttw-music-player 
 		#modalUpload.modal.hide.fade(aria-hidden='true', aria-labelledby='uploadLabel', role='dialog', tabindex='-1')
 			.modal-header
 				button.close(aria-hidden='true', data-dismiss='modal') X

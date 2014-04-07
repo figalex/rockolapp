@@ -14,7 +14,9 @@
     "audio-metadata": "~0.3.0",
     "request": "~2.34.0",
     "musicmetadata": "~0.3.4",
-    "sql-ddl-sync": "^0.1.4"
+    "sql-ddl-sync": "^0.1.4",
+    "mongoose": "^3.8.8",
+    "shrinkwrap": "^0.3.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
