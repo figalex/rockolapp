@@ -64,13 +64,13 @@ html
 									| Electronic
 				.span9
 					#player
-						//.ttw-music-player 
+						//.ttw-music-player
 		#modalUpload.modal.hide.fade(aria-hidden='true', aria-labelledby='uploadLabel', role='dialog', tabindex='-1')
 			.modal-header
 				button.close(aria-hidden='true', data-dismiss='modal') X
 				h3 Sube tu cancion!
 			.modal-body
-				form(action='upload_file.php', enctype='multipart/form-data', method='post')
+				form(action='/upload', enctype='multipart/form-data', method='post')
 					br
 					label(for='file') Selecciona una cancion:
 					input#file(name='file', type='file')
@@ -81,7 +81,7 @@ html
 	script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
 	script
 		window.jQuery || document.write('<script src="/js/components/jquery/jquery.js"><\\/script>')
-	script(src='components/sass-bootstrap/bootstrap.js')
+	script(src='js/components/bootstrap-sass/dist/js/bootstrap.js')
 		script(src="/js/components/jquery/dist/jquery.js")
 	script(src="/js/components/music-player/plugin/jquery-jplayer/jquery.jplayer.js")
 	script(src="/js/components/music-player/plugin/ttw-music-player.js")

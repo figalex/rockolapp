@@ -9,7 +9,9 @@ module.exports = function(app, config) {
     app.set('view engine', 'jade');
     app.use(express.favicon(config.root + '/app/public/img/favicon.ico'));
     app.use(express.logger('dev'));
-    app.use(express.bodyParser());
+    //app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(function(req, res) {

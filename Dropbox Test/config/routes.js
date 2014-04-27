@@ -16,4 +16,6 @@ module.exports = function(app){
 
 	app.get('/song/:songName', auth.song);
 
+    app.post('/upload', auth.upload);
+
 };
