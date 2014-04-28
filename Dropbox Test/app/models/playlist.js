@@ -11,7 +11,7 @@ var playlistSchema = new Schema({
 	}]
 });
 
-mongoose.model('Playlist', playlistSchema);
+mongoose.model('playlist', playlistSchema);
 
 
 // var db = require('orm').db;

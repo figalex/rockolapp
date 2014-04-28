@@ -14,7 +14,7 @@ var songSchema = new Schema({
 	}
 });
 
-mongoose.model('Song', songSchema);
+mongoose.model('song', songSchema);
 
 
 // var db = require('orm').db;

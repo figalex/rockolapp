@@ -10,22 +10,7 @@ var userSchema = new Schema({
 	},
 	email: String,
 	token: String,
+	dropboxUID: String
 });
 
-mongoose.model('User', userSchema);
-
-
-
-// var db = require('orm').db;
-
-// var User = db.define('user', {
-// 	name: String,
-// 	email: String,
-// 	token: String
-// });
-
-// db.drop(function(){
-// 	User.sync(function(){
-
-// 	});
-// });
+mongoose.model('user', userSchema);

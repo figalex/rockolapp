@@ -9,11 +9,15 @@ module.exports = function(app){
 
 	app.get('/auth', auth.login);
 
+	app.get('/enter/:email', auth.enter);
+
 	//View that will be displayed when the app is sacanning the dropbox folder
 	app.get('/scan', auth.scan);
 
 	app.get('/app', auth.app);
 
 	app.get('/song/:songName', auth.song);
+
+    app.post('/upload', auth.upload);
 
 };

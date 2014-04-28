@@ -1,6 +1,10 @@
+'use strict';
+
 var Dropbox = require('dropbox'),
     songsTasks = require('./songs'),
-    usersTasks = require('./users');
+    usersTasks = require('./users'),
+    formidable = require('formidable'),
+    fs = require('fs');
 
 var client = new Dropbox.Client({
     key: 'mqxinfiibo2kq4t',
@@ -8,9 +12,11 @@ var client = new Dropbox.Client({
 });
 
 var user = {},
-    songs = [];
+    songs = [],
+    auxCount = 0;
 
 exports.login = function(req, res) {
+    debugger;
     client.authDriver(new Dropbox.AuthDriver.NodeServer({
         port: 8191
     }));
@@ -18,20 +24,23 @@ exports.login = function(req, res) {
     client.authenticate(function(error, authClient) {
         if (error) throw new Error(error);
         console.log('CLIENT AUTHENTICATED');
-        console.log(authClient);
+        debugger;
         client = authClient;
-        user.token = authClient._oauth._token;
+        user.token = authClient.credentials().token;
+        user.dropboxUID = authClient.credentials().uid;
 
         client.getAccountInfo(function(error, info) {
             if (error) throw new Error(error);
             console.log('User info:');
             console.log(info);
+            debugger;
             user.name = info.name;
             user.email = info.email;
 
-            usersTasks.lookUp(user, function(err, userFound) {
+            usersTasks.lookUp({email:user.email}, function(err, userFound) {
                 if (err) throw new Error();
 
+                debugger;
                 if (!userFound) {
                     usersTasks.create(user, function(err, newUser) {
                         if (err) throw new Error();
@@ -49,18 +58,16 @@ exports.login = function(req, res) {
     });
 };
 
+
 exports.scan = function(req, res) {
     res.render('home/scan', {});
 };
 
 
 exports.app = function(req, res) {
-    debugger;
     if (songs.length < 1) {
 
-        client.search('/', 'Rockolapp', {
-            limit: 10
-        }, function(err, results) {
+        client.search('/', 'Rockolapp', {limit: 10}, function(err, results) {
             debugger;
             if (err) {
                 res.redirect('/');
@@ -108,6 +115,7 @@ exports.app = function(req, res) {
                     if (err) throw new Error(err);
 
                     console.log('Folder Rockolapp created');
+
                     res.render('index', {
                         user: user,
                         songs: songs
@@ -123,7 +131,7 @@ exports.app = function(req, res) {
     }
 };
 
-exports.song = function(req, res) {
+exports.song = function(req, res){
     var songID = req.params.songName;
     console.log(songID);
 
@@ -131,5 +139,47 @@ exports.song = function(req, res) {
         if (err) throw new Error();
 
         res.send(songObj);
+    });
+};
+
+exports.upload = function(req, res) {
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+        if (err) throw new Error(err);
+
+        fs.readFile(files.file.path, function(err, data) {
+            if (err) throw new Error(err);
+
+            client.writeFile('Rockolapp/' + files.file.name, data, function(err, stat) {
+                if (err) throw new Error(err);
+
+                res.redirect('/app');
+            });
+        });
+    });
+};
+
+exports.enter = function(req, res){
+    debugger;
+    var userEmail = req.params.email;
+
+    usersTasks.lookUp({email:userEmail}, function(err, userFound) {
+        if (err) throw new Error();
+
+        if (!userFound) {
+            res.redirect('/');
+        } else {
+
+            var dboxCredentials = client.credentials();
+            dboxCredentials.token = user.token;
+            dboxCredentials.uid = user.dropboxUID;
+
+            client = new Dropbox.Client(dboxCredentials);
+
+            user = userFound.info;
+            songs = userFound.songs;
+            res.redirect('/app');
+        }
     });
 };

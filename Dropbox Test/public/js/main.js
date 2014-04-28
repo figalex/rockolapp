@@ -27,32 +27,24 @@ $('.button--dropbox.js').click(function(){
 	window.location.href = "/auth";
 });
 
+$(document).ready(function(){
+	debugger;
+	if(location.href.charAt(location.href.length-1) == '/'){
+		var userEmail = $.jStorage.get('rockolAppUserEmail', null);
 
-	// function playSong(item){
-	// 	var songName = item.innerHTML;
-	// 	$.getJSON('/song/'+songName, function(url){
-	// 		var player = document.getElementById('player');
-	// 		while(player.hasChildNodes()){
-	// 			player.removeChild(player.lastChild);
-	// 		}
+		if(userEmail)
+		{
+			window.location.href = "/enter/"+encodeURIComponent(userEmail);
+		}
+	}
 
-	// 		var playlist = [{
-	// 			mp3: url.data,
-	// 			rating:0,
-	// 			title:songName,
-	// 			duration: '3:30',
-	// 			artist: 'AC/DC',
-	// 		}];
+	$('#userkey').ready(function(){
+		debugger;
+		var userEmail = $('#userkey').html();
 
-	// 		$('#player').ttwMusicPlayer(playlist, {
-	// 			autoPlay:true,
-	// 			description:''
-	// 		});
-	// 	});
-	// }
-
-	// $('.button--dropbox.js').click(function(){
-	// 	window.location.href = "/auth";
-	// });
-
-
+		if(userEmail && userEmail !== '')
+		{
+			$.jStorage.set('rockolAppUserEmail', userEmail);
+		}
+	});
+});
