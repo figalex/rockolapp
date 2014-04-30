@@ -154,7 +154,11 @@ exports.upload = function(req, res) {
             client.writeFile('Rockolapp/' + files.file.name, data, function(err, stat) {
                 if (err) throw new Error(err);
 
-                res.redirect('/app');
+                songsTasks.saveSong(stat, user, client, function(err, result) {
+                    if (err) throw new Error(err);
+                    songs.push(result);
+                    res.redirect('/app');
+                });
             });
         });
     });
