@@ -4956,8 +4956,7 @@ header #menubar {
           header #menubar .navbar-inner ul li#plist a:hover {
             color: #bbe500; }
         header #menubar .navbar-inner ul li#user {
-          float: right;
-          width: 55%; }
+          float: right; }
           header #menubar .navbar-inner ul li#user div {
             float: right;
             box-shadow: 2px 0 20px -2px rgba(0, 0, 0, 0.4);
@@ -4993,7 +4992,15 @@ header #menubar {
     height: 700px;
     width: 17%; }
     #main-container .span3 div#lista-canciones {
-      height: 400px; }
+      height: 400px;
+      background-color: black;
+      background-image: -moz-linear-gradient(top, #333333, #222222);
+      background-image: -ms-linear-gradient(top, #333333, #222222);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
+      background-image: -webkit-linear-gradient(top, #333333, #222222);
+      background-image: -o-linear-gradient(top, #333333, #222222);
+      background-image: linear-gradient(top, #333333, #222222);
+      background-repeat: repeat-x; }
     #main-container .span3 ul {
       margin: 0; }
       #main-container .span3 ul li#song {
