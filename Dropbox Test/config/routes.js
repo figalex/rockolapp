@@ -11,6 +11,8 @@ module.exports = function(app){
 
 	app.get('/enter/:email', auth.enter);
 
+    app.get('/logout', auth.logOut);
+
 	//View that will be displayed when the app is sacanning the dropbox folder
 	app.get('/scan', auth.scan);
 

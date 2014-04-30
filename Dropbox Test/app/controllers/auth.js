@@ -17,9 +17,10 @@ var user = {},
 
 exports.login = function(req, res) {
     debugger;
-    client.authDriver(new Dropbox.AuthDriver.NodeServer({
+    var server = new Dropbox.AuthDriver.NodeServer({
         port: 8191
-    }));
+    });
+    client.authDriver(server);
 
     client.authenticate(function(error, authClient) {
         if (error) throw new Error(error);
@@ -53,7 +54,7 @@ exports.login = function(req, res) {
                 }
             });
         });
-
+        server.closeServer();
         res.redirect('/scan');
     });
 };
@@ -181,9 +182,23 @@ exports.enter = function(req, res){
 
             client = new Dropbox.Client(dboxCredentials);
 
-            user = userFound.info;
-            songs = userFound.songs;
-            res.redirect('/app');
+            client.authenticate({interactive:false}, function(error){
+                if(error){
+                    res.redirect('/');
+                }
+
+                if(client.isAuthenticated()){
+                    user = userFound.info;
+                    songs = userFound.songs;
+                    res.redirect('/app');
+                }
+            });
         }
     });
 };
+
+exports.logOut = function(req,res){
+    songs = [];
+    user = {};
+    res.redirect('/');
+}
